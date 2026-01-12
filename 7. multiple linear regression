@@ -1,0 +1,28 @@
+#MULTIPLE LINEAR REGRESSION
+
+from google.colab import files
+uploaded = files.upload()
+
+import pandas as pd
+df = pd.read_csv('areacost.csv')
+df.head(2)
+
+model = LinearRegression()
+model.fit(df[['Area ']], df['Cost'])
+
+y_pred = model.predict(df[['Area ']])
+
+mae = mean_absolute_error(df['Cost'],y_pred)
+print("Mean Absolute Error:",mae)
+
+mse = mean_squared_error(df['Cost'],y_pred)
+print("Mean Squared Error:",mse)
+
+rmse = np.sqrt(mse)
+print("Root Mean Squared Error:",rmse)
+
+plt.scatter(df['Area '], df['Cost'], color='blue')
+plt.xlabel('Area')
+plt.ylabel('Cost')
+plt.title('Area vs Cost')
+plt.show()
