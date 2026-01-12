@@ -1,0 +1,58 @@
+
+ Multi-variate Data Analyis : As one variable may be related to more than one variable or attribute
+
+It shows relationship between 2 or more variables
+
+TIPS DATASET
+
+import seaborn as sns #because seaborn has multiple visualisation and graphs like plots, etc ,matplot lib has all plots, graphs
+
+df = sns.load_dataset('tips') #df = dataframe referring to tips dataset  and tips dataset is already available in seaborn library
+
+titanic = pd.read_csv(file_path)
+
+df.head()
+
+sns.scatterplot(x = 'total_bill', y = 'tip', data = df)
+
+sns.scatterplot(x='total_bill', y='tip', hue=df['sex'], data=df)  #hue is used to add a third dimension by color-coding the points based on a categorical values and any other keyword (like z) is not used or will give keyword erroe
+
+sns.scatterplot(x='total_bill', y='tip', hue=df['sex'], style = df['smoker'], data=df) #style is a standard parameter is used to differentiate data points using marker shapes (like circles, triangles, squares)
+
+sns.scatterplot(x='total_bill', y='tip', hue=df['sex'], style = df['smoker'], size = df["size"] ,data=df) #The size parameter is a standard parameter that maps a numeric or categorical variable to the size of the points (bubbles) in the scatter plot.
+
+sns.barplot(x = "Pclass" , y = "Age", data = titanic)
+
+sns.barplot(x = "Pclass" , y = "Age", hue = df["sex"],data = titanic)  #(Outliers : are not present)
+
+sns.boxplot(x = "Pclass" , y = "Age", hue = df['sex'], data = titanic) #Outliers are present (They are the values that are very different from our dataset)
+
+sns.displot(titanic['Age']) #This is a way to get avergae values of particular categories (It is used to visualize the distribution of a particular dataset. )
+
+pd.crosstab(titanic['Pclass'],titanic['Survived']) #crosstab : it gives ius the summarize of particular tabs and It helps to: i)Count frequencies between two categories ii)Analyze relationships between categorical variables iii)Create pivot-table-like summaries
+
+sns.heatmap(pd.crosstab(titanic['Pclass'],titanic['Survived']))
+
+pd.crosstab(titanic['SibSp'],titanic['Survived'])
+
+sns.clustermap(pd.crosstab(titanic['SibSp'],titanic['Survived']))
+
+df1 = sns.load_dataset("iris")
+
+df1.head()
+
+df1.shape
+
+sns.pairplot(df1,hue="species")
+
+df2 = sns.load_dataset("flights")
+
+df2.head()
+
+df2.shape
+
+df2.info()
+
+df2.groupby("year")["passengers"].sum()
+
+sns.lineplot(x = "year", y = "passengers",data = df2)
