@@ -1,0 +1,250 @@
+
+To study and implement NumPy Library
+
+#Creating Arrays in Numpy
+
+import numpy as np
+arr = np.array([1,2,3,4,5]) #np.array creates a NumPy array from a given list or iterable.
+print(arr)
+print(type(arr)) #type() returns the data type or class of the given object.
+
+import numpy as np
+print(np.__version__) #np.__version__ returns the installed version of the NumPy library.
+
+import numpy as np
+arr = np.array([1,2,3,4,5])
+print(arr[0])
+
+import numpy as np
+arr =np.array([1,2,3,4,5])
+print(arr[2] + arr[3])
+
+import numpy as np
+arr = np.array([[1,2,3,4,5],[6,7,8,9,10]])
+print(arr)
+print('2nd element on 1st row: ', arr[0,1])
+print('5th element on 2nd row:',arr[1,4])
+
+
+#**Array Slicing**
+
+import numpy as np
+arr = np.array([1,2,3,4,5,6,7])
+print(arr[1:5])
+print(arr[::-1])
+print(arr[4:])
+print(arr[:4])
+
+import numpy as np
+arr = np.array([1,2,3,4])
+print(arr.dtype)
+
+import numpy as np
+arr = np.array(['apple','banana','cherry'])
+print(arr.dtype)
+
+import numpy as np
+arr = np.array([1,2,3,4,5])
+x = arr.copy()
+arr[0] = 42
+print(arr)
+print(x)
+
+import numpy as np
+arr = np.array([1,2,3,4,5])
+x = arr.view()
+arr[0] = 42
+print(arr)
+print(x)
+
+import numpy as np
+arr = np.array([[1,2,3,4],[5,6,7,8]])
+print(arr.shape) #arr.shape returns a tuple representing the dimensions of the NumPy array.
+
+import numpy as np
+arr = np.array([1,2,3,4],ndmin = 5) #It creates a NumPy array with the specified data and a minimum of 5 dimensions.
+print(arr)
+print('shape of array:',arr.shape)
+
+import numpy as np
+a = np.array([(1,2,3),(3,4,4)])
+print(a)
+print(type(a))
+
+b = np.array([1,2,3])
+print(b)
+print(b.dtype) #It tells us the data types of the elements in an array
+print(type(b)) #It prints the type of the object b
+
+print(a.ndim) #get dimensions of a (number dimension)
+print(b.ndim)
+
+print(a.shape)
+print(b.shape) #outputs the shape (dimensions) of the NumPy array b as a tuple.
+
+a = np.array([(1,2,3),(3,4,4)], dtype = 'int16') #if we want to specify the size of it,we can while declaring the size integer type having size = 16
+print(a.dtype)
+print(a.itemsize) #It prints the size (in bytes) of each element in the NumPy array a.
+
+a = np.array([(1,2,3),(3,4,4)],dtype = 'int32')
+print(a.itemsize) #One element will have how many bytes 1byte = 8 bits
+print(a.size) #Total number of elements in the array
+print(a.shape) #Will  give Row,Column
+
+
+print(a.size * a.itemsize) # another
+print(a.nbytes) #total number of bytes in the array or total size
+
+#**Accessing / Changing access**
+
+w = np.arange(start = 1, stop = 10, step = 2) #It creates a NumPy array starting from 1 up to (but not including) 10, with steps of 2.
+print(w)
+
+w = np.arange(1,10,2)
+print(w)
+
+a = np.array([[1,2,3,4,5,6,7],[8,9,10,11,12,13,14]])
+print(a)
+print(a.shape)
+
+print(a[1,4])
+a[0,-1]
+
+print(a[1, : ])
+print(a[:,5])
+
+print(a[0,1:6:2])
+
+a[1,6] = 20 #directly change the element
+print(a)
+
+a[:,2] = 5 #All rows, with 3rd column changed to 5
+print(a)
+
+q = np.array([[[1,2],[3,4]],[[5,6],[7,8]]])
+#3D : vector of Matrix #2d : Matrix # 1D : Vector
+print(q)
+
+print(q[0,1,1]) #1 Matrix, 2row, 2 column
+print(q[:,1,:]) # All matrix, 2nd roow, all columns
+
+
+q[:,1,:] = [9,9],[9,9] #Replacing All matrix, 2nd row, all column
+
+q
+
+#**Initializing DIfferent types of arrays**
+
+a = np.zeros((2,2)) #All 0s matrix, specify shape
+print(a) #creates a 2x2 NumPy array filled with zeros.
+
+print(np.zeros((2,2,3))) #creates and prints a 3-dimensional NumPy array with shape (2, 2, 3), filled with zeros.
+
+print(np.ones((4,2,2),dtype = 'int32')) #creates and prints a 3D NumPy array of shape (4, 2, 2) filled with ones, where each element is of integer type (int32).
+
+print(np.full((2,2),99,dtype = 'float32')) #Matrix with 2,2 size and is filled with 99 element with datatye float 32
+
+print(np.full_like(q,7)) #reusing previous matrix (q) and filling it with 7
+
+#**Creating random numbers**
+
+print(np.random.rand(2,3)) #create array of size 2,3 with random numbers between [0,1] 0(inclusive) and 1(exclusive)
+
+
+print(np.random.random_sample(q.shape)) #generates and prints an array of random floats between 0 and 1 with the same shape as the array q.
+
+print(np.random.randint(7,size = (3,3))) #randint = integer and generate value between 0 (Include) and 7 (Exclude)
+
+print(np.random.randint(-6,6,size = (2,2))) # between -6(Inclusive) and 6[excluded]
+
+print(np.random.randint(-6,6,2)) #2 is the size, i.e, only two values between -6(Inclusive) and 6[excluded]
+
+print(np.identity(7,dtype = 'int16')) #To create an identity matrix and 7 is the number of rows
+
+arr = np.array([1,2,3])
+z = np.repeat(arr,3,axis = 0)
+print(z)
+
+#**Copying Arrays**
+
+a = np.array([1,2,3]) #a is created and then b is also pointing to same object, a copy is not getting created (it's the same objects)
+b = a
+print(b)
+b
+b[0] = 100
+print(b)
+print(a)
+
+b = a.copy() #Here the contents of a is copied in b
+print(a)
+b[2] = 90
+print(b)
+print(a)
+
+#**Mathematics/BroadCasting**
+
+a = np.array([1,2,3,4])
+print(a)
+
+a += 2
+print(a)
+print(a+2)
+print(a - 2)
+print(a * 2)
+print(a/2)
+
+b = np.array([1,0,1,0])
+print(a+b)
+print(a ** 2)
+
+#**Linear Algebra**
+
+a = np.ones((2,3))
+print(a)
+
+b = np.full((3,2),2) #creates a 3x2 NumPy array filled with the value 2
+print(b)
+
+np.matmul(a,b) #Matrix multiplication : output would be 2 by2 matrix
+
+c = np.identity(3) #This code creates a 3×3 identity matrix c and then calculates its determinant.
+np.linalg.det(c)
+
+#**Statistics**
+
+stats = np.array([[5,2,3],[4,5,6]])
+stats
+
+print("Maximum :",np.max(stats, axis = 1)) #It returns the new array with max values from each row and axis = 1 means row
+
+print("Minimum :",np.min(stats, axis = 0)) #It returns the new array with min values from each column and axis = 0 means column
+
+print(np.min(stats))
+
+print(np.sum(stats)) #calculates and prints the sum of all elements in the NumPy array stats.
+
+sum(sum(stats))
+
+#**Reorganizing Arrays**
+
+before = np.array([[1,2,3,4],[5,6,7,8]])
+print(before)
+
+after = before.reshape(8,1) #Reshaping array as 8 rows and 1 column
+print(after)
+
+#Vertically Staking vectors
+
+v1 = np.array([1,2,3,4]) #vector
+v2 = np.array([5,6,7,8]) #vector
+
+np.vstack([v1,v2,v2])  #stacking vectors together as matrices
+
+#Horizontal Stacking
+
+h1 = np.ones((1,2)) #matrix
+h2 = np.zeros((1,2)) #matrix
+print(h1)
+print(h2)
+
+np.hstack((h1,h2))
