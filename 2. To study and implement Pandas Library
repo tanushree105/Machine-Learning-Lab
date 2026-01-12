@@ -1,0 +1,74 @@
+from google.colab import files
+uploaded = files.upload()
+
+import pandas as pd
+df = pd.read_csv('pokemon_data.csv') #reads the file and loads it into a pandas dataframe df
+df
+
+print(df.columns) #reading headers (column names)
+
+print(df.head(3)) #reading starting 3 rows(By default : it gives 5 rows of starting)
+
+print(df["Name"]) #This line prints the "Name" column from a pandas DataFrame df
+
+print(df["Name"][0:10]) #First 10 rows of the specific column using slicing
+
+df.Name  #Simply the name of the columns
+
+print(df[["Name","Type 1","HP"]]) #it’s extracting and printing just
+                                  #the Name, Type 1, and HP columns from your DataFrame.
+
+print(df.iloc[1]) #prints the entire second row of the DataFrame df (index 1) as a Series.
+
+print(df.iloc[2,1]) #prints the value in the third row (index 2)
+                     #and the second column (index 1) of the DataFrame df.
+
+The 3rd way via uploading file into drive and then mounting the drive for getting the file in colab
+
+from google.colab import drive
+drive.mount('/content/drive')
+
+file_path = '/content/drive/My Drive/AIML Lab/pokemon_data.csv'
+
+
+import pandas as pd
+df = pd.read_csv(file_path) #dataframe is the reference to the file
+
+df
+
+
+**Reading Data in Pandas**
+
+#reading headers
+print(df.columns)
+
+print(df.head) #default head method will output the first 5 rows of the DataFrame df.
+
+print(df.head(3)) #1st three rows of each column
+
+print(df['Name']) #prints the values of the "Name" column from the DataFrame df.
+
+print(df['Name'][0:10]) #prints the values of the "Name" column from the first row (index 0)
+                         #to the 10th row (index 9) of the DataFrame df.
+
+df.Name  #is a shorthand way of accessing the "Name" column in the DataFrame df
+
+print(df[["Name", "Type 1", "HP"]]) #print 3 column details
+
+print(df.iloc[1])  #Read each row
+
+print(df.shape) #Total number of (rows, column)
+
+print(df.info) #provides all the info regarding the dataset
+
+print(df.describe())  #This provides all the stats like mean, standard deviation etc
+
+df.sort_values("Name") #sorts the DataFrame df in ascending order based on the values in the "Name" column.
+
+df.sort_values("Name",ascending = False) #sorts the DataFrame df in descending order
+                                         #based on the values in the "Name" column.
+
+print(df.sort_values(["Type 1","HP"],ascending = False)) #sorts the DataFrame df first by the "Type 1" column
+                                                         #and then by the "HP" column, both in descending order.
+
+print(df.sort_values(["Type 1","HP"],ascending = [1,0])) #sorts the DataFrame df by the "Type 1" column in ascending order
