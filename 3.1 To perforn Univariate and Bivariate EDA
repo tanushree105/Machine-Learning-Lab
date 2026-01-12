@@ -1,0 +1,72 @@
+A] To perform Univariate EDA
+
+EDA (EXPLORATORY DATA ANALYSIS) : To understand the data
+
+Data Analysis means asking yourself the questions regarding the data
+
+One-variate : A variable is realted to another one variable
+
+Univariate EDA : It shows relationship between 2 variables
+
+TRAIN DATASET
+
+from google.colab import drive
+drive.mount('/content/drive')
+
+file_path = '/content/drive/My Drive/AIML Lab/train.csv'
+
+import pandas as pd
+df = pd.read_csv(file_path)
+
+#1. What is the size of data
+df.shape
+
+#2. How does the data looks like ?
+df.head()
+
+#3. What is the datatype of the columns ?
+df.info()
+
+#4.Are there any missing values?
+df.isnull()
+
+df.isnull().sum() #each attributes have this many NULL values
+
+#5.Is there any duplicate values ?
+
+df.duplicated().sum()
+
+#6. Is there any corelation ?
+df.corr(numeric_only = True) #Any attribute is connected with (or related to) another attribute
+
+Date = 25/08/25
+
+df.corr(numeric_only = True)['Survived'] #Calculates the correlation between the "Survived" column
+                                          #and all other numeric columns in the DataFrame df.
+
+df.corr(numeric_only = True)['Pclass'] #calculates the correlation between the "Pclass" column
+                                       #and all other numeric columns in the DataFrame df.
+
+df.corr(numeric_only = True)["Age"] #calculates the correlation between the "Age" column
+                                    #and all other numeric columns in the DataFrame df
+
+#**SEABORN MODULE**
+
+It has inbuilt dataset and has multiple visualisation and graphs like plots, etc ,matplot lib has all plots, graphs
+
+import seaborn as sns
+
+sns.catplot(df["Pclass"]) #creates a categorical plot of the "Pclass" column from df, showing its distribution.
+
+sns.catplot(df["Age"]) #creates a catplot of "Age", showing its distribution
+
+sns.catplot(df["Survived"]) #creates a catplot showing its discription
+
+sns.boxplot(df["Survived"]) #creates a box plot of the "Survived" from df, showing the distribution, median, and outliers of the Survived values
+
+sns.boxplot(df["Pclass"]) #creates a box plot of the "Pclass" from df, showing the distribution, median, and outliers of the Survived values
+
+sns.boxplot(df['Age']) #creates a box plot of the "Age" from df, showing the distribution, median, and outliers of the Survived values
+
+sns.scatterplot(x="Survived",y="Pclass",data = df) #creates a scatter plot that shows the relationship
+                                                   # between the "Survived" and "Pclass" columns
