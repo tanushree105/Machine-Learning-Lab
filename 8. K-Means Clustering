@@ -1,0 +1,116 @@
+from google.colab import files
+uploaded = files.upload()
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
+
+import warnings
+warnings.filterwarnings('ignore')
+
+df = pd.read_csv("cars.csv")
+df.head()
+
+df.shape
+
+df.describe()
+
+dv = pd.read_csv("cars.csv",usecols = ['odometer_value','year_produced','price_usd'])
+
+dv.isnull().sum()
+
+#To remove the rows with Nan in any column
+
+dv = dv.dropna()
+dv.head()
+
+#scatterplot : to idetify the outliers in the data
+
+sns.scatterplot(data = dv,x='year_produced', y = 'odometer_value',hue= 'price_usd')
+
+
+plt.scatter(dv['year_produced'], dv['odometer_value'],color = 'orange')
+plt.show()
+
+DATA NORMALIZATION : To keep different values of the structure's attributes on the same scale to facilitate data computation.
+
+scaler = StandardScaler()
+scaler.fit(dv[['odometer_value','year_produced','price_usd']])
+
+dv_normalized = scaler.transform(dv[['odometer_value','year_produced','price_usd']])
+print(dv_normalized[:5])
+
+#search for the best number of clusters with the Elbow Method
+inertia = []
+for i in range(1, 11):
+  kmeans = KMeans(n_clusters = i, random_state = 42, n_init = 'auto')
+  kmeans.fit(dv)
+  inertia.append(kmeans.inertia_)
+
+plt.plot(range(1, 11), inertia, marker ='o')
+plt.title('The Elbow Method for Optimal k')
+plt.xlabel('Number of clusters')
+plt.ylabel('Within-cluster Sum of Square')
+plt.show()
+
+#Clustering with k-means
+
+kmeans = KMeans(n_clusters = 3, random_state = 0, n_init = 'auto')
+clusters = kmeans.fit_predict(dv_normalized)
+
+#Cluster Visualization
+
+plt.scatter(dv_normalized[:,0], dv_normalized[:,1], c = clusters,cmap='viridis',marker ='o')
+plt.xlabel("odomter_value",fontsize = 12)
+plt.ylabel("year_produced",fontsize = 12)
+plt.show()
+
+#CLuter Analysis
+
+sns.boxplot(x = clusters, y = dv['price_usd'])
+
+
+summary_stats = dv.groupby(clusters)['price_usd'].describe()
+print(summary_stats)
+
+sns.boxplot(x = clusters, y = dv['odometer_value'])
+
+summary_stats = dv.groupby(clusters)['odometer_value'].describe()
+print(summary_stats)
+
+sns.boxplot(x = clusters, y = dv['year_produced'])
+
+summary_stats = dv.groupby(clusters)['year_produced'].describe()
+print(summary_stats)
+
+#Naming the clusters with meaningful names
+
+dv['cluster'] = clusters
+print(dv.head(10))
+
+df_new = pd.read_csv("cars.csv")
+df_new.head()
+
+cluster_names_map = {0 : 'Normal', 1:'Recent', 2:'Classic'}
+
+df_new['cluster'] = pd.Series(clusters).map(cluster_names_map)
+df_new.head()
+
+sns.scatterplot(data = df_new, x = 'odometer_value', y = 'price_usd', hue = 'cluster')
+
+from matplotlib import markers
+#Three-dimensional visualization
+
+fig = plt.figure(figsize=(12,9))
+ax = fig.add_subplot(111,projection = '3d')
+
+ax.scatter(dv_normalized[:,0], dv_normalized[:,1], dv_normalized[:,2], c = clusters, cmap = 'viridis',marker = 'o')
+ax.set_xlabel('odometer_value')
+ax.set_ylabel('year_produced')
+ax.set_zlabel('price_usd')
+ax.set_title('3D visualization of Cars Cluster')
+plt.show()
